@@ -1,5 +1,4 @@
-import { useState,useContext } from "react"
-import { UserContext } from "../../contexts/user.contexts";
+import { useState } from "react"
 
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase.utils";
 
@@ -22,8 +21,6 @@ const SignUpForm = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const { displayName, email, password, confirmPassword } = formFields
 
-    const { setCurrentUser } = useContext(UserContext)
-
     const resetFormFields = () => {
         setFormFields(defaultFormFields)
     }
@@ -40,7 +37,7 @@ const SignUpForm = () => {
             // make sure to call the method, pass it email value and password value which we destructed from form fields
             const { user } = await createAuthUserWithEmailAndPassword(email, password);
 
-            setCurrentUser(user)
+
 
             await createUserDocumentFromAuth(user, { displayName })
             resetFormFields()
